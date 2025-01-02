@@ -5,6 +5,7 @@ public class Reduce {
 
     public void to(int[] array) {
         this.array = array;
+
     }
 
     public void print() {
