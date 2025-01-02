@@ -3,8 +3,8 @@ package ru.job4j.oop;
 public class Reduce {
     private int[] array;
 
-    public void to(int[] secondArray) {
-        array = secondArray;
+    public void to(int[] array) {
+        this.array = array;
     }
 
     public void print() {
