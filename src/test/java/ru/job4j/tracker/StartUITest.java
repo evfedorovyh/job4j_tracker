@@ -5,49 +5,74 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
 class StartUITest {
+
     @Test
     void whenCreateItem() {
+        Output output = new StubOutput();
         Input input = new MockInput(
                 new String[] {"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
 
         UserAction[] actions = {
-                new CreateAction(),
-                new ExitAction()
+                new CreateAction(output),
+                new ExitAction(output)
         };
-        new StartUI().init(input, tracker, actions);
-        assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
-    }
-
-    @Test
-    void whenReplaceItem() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("Replaced item")); /* Добавляется в tracker новая заявка */
-        String replacedName = "New item name";
-        Input input = new MockInput(
-                new String[] {"0", "1", replacedName, "1"}
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Добавить новую заявку" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Создание новой заявки ===" + System.lineSeparator()
+                        + "Добавленная заявка: " + tracker.findAll()[0] + System.lineSeparator()
+                        + "Меню:" + System.lineSeparator()
+                        + "0. Добавить новую заявку" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Завершение программы ===" + System.lineSeparator()
         );
-        UserAction[] actions = {
-                new ReplaceAction(),
-                new ExitAction()
-        };
-        new StartUI().init(input, tracker, actions);
-        assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
 
     @Test
     void whenDeleteItem() {
+        Output output = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Deleted item")); /* Добавляется в tracker новая заявка */
         Input input = new MockInput(
-                new String[] {"0", "1", "1"}
+                new String[] {"0", String.valueOf(item.getId()), "1"}
         );
         UserAction[] actions = {
-                new DeleteAction(),
-                new ExitAction()
+                new DeleteAction(output),
+                new ExitAction(output)
         };
-        new StartUI().init(input, tracker, actions);
-        assertThat(tracker.findById(item.getId())).isNull();
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Удалить заявку" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Удаление заявки ===" + System.lineSeparator()
+                        + "Заявка удалена успешно." + System.lineSeparator()
+                        + "Меню:" + System.lineSeparator()
+                        + "0. Удалить заявку" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Завершение программы ===" + System.lineSeparator()
+        );
+    }
+
+    @Test
+    void whenExit() {
+        Output output = new StubOutput();
+        Input input = new MockInput(
+                new String[] {"0"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {
+                new ExitAction(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Завершить программу" + System.lineSeparator()
+                        + "=== Завершение программы ===" + System.lineSeparator()
+        );
     }
 }
