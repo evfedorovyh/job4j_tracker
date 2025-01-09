@@ -11,6 +11,7 @@ class StartUITest {
                 new String[] {"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
+
         UserAction[] actions = {
                 new CreateAction(),
                 new ExitAction()
