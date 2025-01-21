@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает банковский счет клиента банка. Класс имеет два поля
+ * requisite (реквизиты счета) и balance (баланс счета),
+ * конструктор, геттеры, сеттеры и переопределенные методы hashCode и equals.
+ * @author EVGENY FEDOROVYH
+ * @version 1.0
+ */
 public class Account {
     private String requisite;
     private double balance;

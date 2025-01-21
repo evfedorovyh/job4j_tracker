@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает клиента банка. Класс имеет два поля
+ * passport (номер паспорта клиента) и username (имя клиента),
+ * конструктор, геттеры, сеттеры и переопределенные методы hashCode и equals.
+ * @author EVGENY FEDOROVYH
+ * @version 1.0
+ */
 public class User {
     private String passport;
     private String username;
