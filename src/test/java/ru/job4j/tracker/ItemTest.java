@@ -24,8 +24,7 @@ class ItemTest {
 
         );
         items.sort(new ItemAscByName());
-        assertThat(items.get(0).getName()).isEqualTo(expected.get(0).getName());
-        assertThat(items.get(items.size() - 1).getName()).isEqualTo(expected.get(items.size() - 1).getName());
+        assertThat(items).containsExactlyElementsOf(expected);
     }
 
     @Test
@@ -43,7 +42,6 @@ class ItemTest {
                 new Item("Apple")
         );
         items.sort(new ItemDescByName());
-        assertThat(items.get(0).getName()).isEqualTo(expected.get(0).getName());
-        assertThat(items.get(items.size() - 1).getName()).isEqualTo(expected.get(expected.size() - 1).getName());
+        assertThat(items).containsExactlyElementsOf(expected);
     }
 }
