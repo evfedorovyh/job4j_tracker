@@ -5,14 +5,14 @@ import java.util.*;
 public class AnalyzeByMap {
     public static double averageScore(List<Pupil> pupils) {
         double result = 0;
-        int amountScopes = 0;
+        int amountScores = 0;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
                 result += subject.score();
-                amountScopes++;
+                amountScores++;
             }
         }
-        return result / amountScopes;
+        return result / amountScores;
     }
 
     public static List<Label> averageScoreByPupil(List<Pupil> pupils) {
@@ -48,11 +48,11 @@ public class AnalyzeByMap {
     public static Label bestStudent(List<Pupil> pupils) {
         List<Label> result = new ArrayList<>();
         for (Pupil pupil : pupils) {
-            double sumScopes = 0;
+            double sumScores = 0;
             for (Subject subject : pupil.subjects()) {
-                sumScopes += subject.score();
+                sumScores += subject.score();
             }
-            result.add(new Label(pupil.name(), sumScopes));
+            result.add(new Label(pupil.name(), sumScores));
         }
         result.sort(Comparator.naturalOrder());
         return result.get(result.size() - 1);
