@@ -35,8 +35,7 @@ public class AnalyzeByMap {
         Map<String, Integer> sumScoresBySubject = new HashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                sumScoresBySubject.put(subject.name(),
-                        sumScoresBySubject.getOrDefault(subject.name(), 0) + subject.score());
+                sumScoresBySubject.merge(subject.name(), subject.score(), Integer::sum);
             }
         }
         for (String key : sumScoresBySubject.keySet()) {
@@ -63,8 +62,7 @@ public class AnalyzeByMap {
         Map<String, Integer> sumScoresBySubject = new HashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                sumScoresBySubject.put(subject.name(),
-                        sumScoresBySubject.getOrDefault(subject.name(), 0) + subject.score());
+                sumScoresBySubject.merge(subject.name(), subject.score(), Integer::sum);
             }
         }
         for (String key : sumScoresBySubject.keySet()) {
