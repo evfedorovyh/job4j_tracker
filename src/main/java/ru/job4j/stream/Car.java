@@ -74,9 +74,9 @@ public class Car {
         System.out.println(car);
 
         car = new Builder()
-                .buildBrand("Toyota")
-                .buildCreated(LocalDate.of(2021, 6, 1))
-                .buildColor("Red")
+                .buildBrand("VW")
+                .buildCreated(LocalDate.of(2023, 5, 10))
+                .buildColor("Black")
                 .build();
         System.out.println(car);
     }
