@@ -1,6 +1,7 @@
 package ru.job4j.stream;
 
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,6 +32,7 @@ public class Analyze {
                 .flatMap(pupil -> pupil.subjects().stream())
                 .collect(Collectors.groupingBy(
                         Subject::name,
+                        LinkedHashMap::new,
                         Collectors.averagingDouble(Subject::score)))
                 .entrySet()
                 .stream()
