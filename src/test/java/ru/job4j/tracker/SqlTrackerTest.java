@@ -13,7 +13,6 @@ import java.util.Properties;
 import static org.assertj.core.api.Assertions.*;
 
 class SqlTrackerTest {
-
     private static Connection connection;
 
     @BeforeAll
