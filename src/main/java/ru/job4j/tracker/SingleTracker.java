@@ -1,10 +1,9 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class SingleTracker {
-    private Tracker tracker = new Tracker();
+    private final Store tracker = new SqlTracker();
     private static SingleTracker instance = null;
 
     private SingleTracker() {
