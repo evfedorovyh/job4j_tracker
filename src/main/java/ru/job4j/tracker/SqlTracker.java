@@ -14,6 +14,10 @@ public class SqlTracker implements Store, AutoCloseable  {
         init();
     }
 
+    public SqlTracker(Connection connection) {
+        this.connection = connection;
+    }
+
     private void init() {
         try (InputStream input = SqlTracker.class.getClassLoader()
                 .getResourceAsStream("db/liquibase.properties")) {
@@ -95,9 +99,7 @@ public class SqlTracker implements Store, AutoCloseable  {
                      connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM items");
             while (resultSet.next()) {
-                result.add(new Item(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getTimestamp(3).toLocalDateTime()));
+                result.add(doNewItem(resultSet));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,9 +115,7 @@ public class SqlTracker implements Store, AutoCloseable  {
             statement.setString(1, key);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                result.add(new Item(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getTimestamp(3).toLocalDateTime()));
+                result.add(doNewItem(resultSet));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,13 +131,17 @@ public class SqlTracker implements Store, AutoCloseable  {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                result = new Item(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getTimestamp(3).toLocalDateTime());
+                result = doNewItem(resultSet);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
+    }
+
+    private Item doNewItem(ResultSet resultSet) throws SQLException {
+        return new Item(resultSet.getInt(1),
+                resultSet.getString(2),
+                resultSet.getTimestamp(3).toLocalDateTime());
     }
 }
