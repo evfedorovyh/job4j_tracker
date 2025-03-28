@@ -60,14 +60,15 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Item item)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return id == item.id && Objects.equals(name, item.name);
+        Item item = (Item) o;
+        return Objects.equals(name, item.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hashCode(name);
     }
 }
